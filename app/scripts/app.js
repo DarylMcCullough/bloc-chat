@@ -7,7 +7,7 @@
         });
          
         $stateProvider
-         .state('landing', {
+         .state('rooms', {
              url: '/',
              controller: 'RoomsCtrl as rooms',
              templateUrl: '/templates/rooms.html'

@@ -1,0 +1,11 @@
+.chat-rooms {
+    width: 30%;
+    height: 100vh;;
+    background-color: bisque;
+    margin: 0;
+}
+
+.chat-room-list li {
+    list-style: none;
+    text-transform: uppercase;
+}
