@@ -1,9 +1,9 @@
 <section class="chat-rooms">
     <div class="buttonDemo" ng-controller="ChatRoomsBtnCtrl">
-        <button type="button" class="btn btn-primary"  ng-model="singleModel" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+        <button type="button" class="btn"  ng-click="foo()">
             Single Toggle
             </button>
-        <div>{{singleModel}}</div>
+        <div>{{greeting}}</div>
         <div class="chat-rooms-title">Bloc Chat</div>
     </div>
     <ul class="chat-room-list" ng-repeat="room in rooms.rooms track by $index">
