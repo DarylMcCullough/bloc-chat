@@ -1,0 +1,10 @@
+.chat-rooms button {
+    float: right;
+    margin-right: 5%;
+    margin-top: 2%;
+}
+
+.chat-rooms .chat-rooms-title {
+    font-size: 200%;
+    font-weight:600;
+}
