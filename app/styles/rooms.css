@@ -1,6 +1,11 @@
-.chat-rooms button {
-    float: right;
+.chat-rooms .buttonDemo {
+
     margin-right: 5%;
+    /*margin-top: 2%;*/
+}
+
+.chat-rooms .buttonDemo button {
+    float: right;
     margin-top: 2%;
 }
 

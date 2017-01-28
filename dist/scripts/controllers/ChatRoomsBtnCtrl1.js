@@ -1,7 +1,6 @@
 (function() {
      function ChatRoomsBtnCtrl($scope) {
         $scope.singleModel = 1;
-        $scope.greeting = "Howdy";
      }
  
      angular
