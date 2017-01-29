@@ -2,7 +2,7 @@
     var ModalInstanceCtrl = function($scope, $uibModalInstance) {
 
       $scope.ok = function () {
-        $uibModalInstance.close();
+        $uibModalInstance.close($scope.data.roomName);
       };
 
       $scope.cancel = function () {

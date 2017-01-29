@@ -1,9 +1,9 @@
 <section class="chat-rooms">
     <div class="buttonDemo modal-demo" ng-controller="ChatRoomsBtnCtrl">
         <button type="button" class="btn"  ng-click="open()">
-            Single Toggle
+            New Chatroom
             </button>
-        <div>{{data.roomName}}</div>
+        <!--<div>{{data.roomName}}</div>-->
         <div class="chat-rooms-title">Bloc Chat</div>
     </div>
     <ul class="chat-room-list" ng-repeat="room in rooms.rooms track by $index">
