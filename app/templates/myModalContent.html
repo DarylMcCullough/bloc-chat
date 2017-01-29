@@ -1,6 +1,13 @@
         <div class="modal-header">
             <h3 class="modal-title" id="modal-title">I'm a modal!</h3>
         </div>
+
+<div class="modal-body" id="modal-body">
+            <form name = "addFriendForm">
+          <input ng-model = "data.roomName" class="form-control" type = "text" placeholder="Username" title=" Username" />
+          {{ roomName }}
+        </form>
+        </div>
         
         <div class="modal-footer">
             <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
