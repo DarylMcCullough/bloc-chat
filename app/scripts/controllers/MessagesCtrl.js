@@ -1,23 +1,47 @@
+//http://plnkr.co/edit/WUKEfcBrSf3XrIQAik67?p=preview
+//http://stackoverflow.com/questions/20887536/angular-ui-bootstrap-accordion-collapse-expand-all
+
 (function() {
-	var MessagesCtrl = function($scope) {
+	var MessagesCtrl = function($scope, $log) {
 		$scope.oneAtATime = true;
-		$scope.groups = [{
-			title: 'Dynamic Group Header - 1',
-			content: 'Dynamic Group Body - 1'
-		}, {
-			title: 'Dynamic Group Header - 2',
-			content: 'Dynamic Group Body - 2'
-		}];
-		$scope.items = ['Item 1', 'Item 2', 'Item 3'];
-		$scope.addItem = function() {
-			var newItemNo = $scope.items.length + 1;
-			$scope.items.push('Item ' + newItemNo);
-		};
-		$scope.status = {
-			isCustomHeaderOpen: false,
-			isFirstOpen: true,
-			isFirstDisabled: false
-		};
+		var msg1 = {
+            userName: "Fred",
+            sentAt: "10/22/2016",
+            content: "Hello"
+        };
+        var msg2 = {
+            userName: "John",
+            sentAt: "10/23/2016",
+            content: "Hi"
+        };
+        var msg3 = {
+            userName: "Jane",
+            sentAt: "10/24/2016",
+            content: "Howdy"
+        };
+        $scope.messages = [msg1, msg2, msg3];
+        $scope.openAll = function() {        
+            for(var i=0; i < $scope.messages.length; i++) {
+                var message = $scope.messages[i];
+                message.open = true;
+            }
+        }
+        
+        $scope.closeAll = function() {
+            for(var i=0; i < $scope.messages.length; i++) {
+                var message = $scope.messages[i];
+                message.open = false;
+            }
+        }
+        $scope.toggle = function(message) {
+            if (message.open) {
+                if ($scope.oneAtATime) {
+                    $scope.closeAll();
+                }
+                $log.info("now it should be true");
+                message.open = true;
+            }
+        }
 	};
-	angular.module('blocChat').controller('MessagesCtrl', ['$scope', MessagesCtrl]);
+	angular.module('blocChat').controller('MessagesCtrl', ['$scope', '$log', MessagesCtrl]);
 })();

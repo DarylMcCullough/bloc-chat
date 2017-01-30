@@ -5,8 +5,9 @@
 
  .time-stamp {
     float:right;
+     font-size: small;
 }
 
 .accordion-div {
-    padding-bottom: 3%;
+    padding-bottom: 2%;
 }
