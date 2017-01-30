@@ -8,7 +8,7 @@
             <div class="chat-rooms-title">Bloc Chat</div>
         </div>
         <ul class="chat-room-list" ng-repeat="room in rooms.rooms track by $index">
-             <li class="room-name">{{room.$value}}</li>
+            <li class="room-name"><a href="" ng-click="setRoom(room)">{{room.$value}}</a></li>
          </ul>
     </section>
     <ng-include src="'/templates/messages_panel.html'"></ng-include>
