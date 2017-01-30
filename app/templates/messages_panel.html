@@ -1,6 +1,7 @@
 <div class="messages-panel">
   
-<h1>{{roomName}}</h1> 
+<h1>{{roomName}}</h1>
+<h2>{{getCurrentUser()}}</h2>
 <span ng-show="currentRoom != null">{{messages.length}} messages</span>
 
   <div class="chat-room-buttons" ng-show="messages.length > 0">

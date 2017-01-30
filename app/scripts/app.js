@@ -10,7 +10,12 @@
  			templateUrl: '/templates/rooms.html'
  		})
  	}
-     function getUserName($uibModal) {			
+     function getUserName($uibModal, $cookies) {
+         var username = $cookies.get('blocChatCurrentUser');
+         if (username != null && username !== "") {
+             console.log("Hey: got a username: " + username);
+             return;
+         }
 			var modalInstance = $uibModal.open({
 				ariaLabelledBy: 'modal-title',
 				ariaDescribedBy: 'modal-body',
@@ -30,11 +35,12 @@
 				console.log('Modal dismissed at: ' + new Date());
                 console.log('username: ' + x);
                 if (x != null && x.length > 0) {
+                    $cookes.put('blocChatCurrentUser', x);
                 }
 			});
 		};
  	angular
-        .module('blocChat', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'ui.router', 'firebase'])
+        .module('blocChat', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'ui.router', 'firebase', 'ngCookies'])
         .config(config)
-        .run(['$uibModal', getUserName]);
+        .run(['$uibModal', '$cookies', getUserName]);
  })();
