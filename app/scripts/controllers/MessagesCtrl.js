@@ -3,6 +3,7 @@
 
 (function() {
 	var MessagesCtrl = function($scope, $log) {
+        $scope.roomName = "Room 1";
 		$scope.oneAtATime = true;
 		var msg1 = {
             userName: "Fred",
