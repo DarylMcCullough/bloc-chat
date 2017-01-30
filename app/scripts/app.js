@@ -22,11 +22,9 @@
 				templateUrl: '/templates/getUsername.html',
 				controller: function($scope, $uibModalInstance) {
                     $scope.ok = function () {
-                        $uibModalInstance.close($scope.username);
-                    };
-
-                    $scope.cancel = function () {
-                        $uibModalInstance.dismiss('cancel');
+                        if ($scope.username != null && $scope.username !== "") {
+                            $uibModalInstance.close($scope.username);
+                        }
                     };
                 }
                 
@@ -35,7 +33,7 @@
 				console.log('Modal dismissed at: ' + new Date());
                 console.log('username: ' + x);
                 if (x != null && x.length > 0) {
-                    $cookes.put('blocChatCurrentUser', x);
+                    $cookies.put('blocChatCurrentUser', x);
                 }
 			});
 		};
