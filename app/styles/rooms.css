@@ -1,3 +1,35 @@
+.whole-rooms-window {
+    width: 100%;
+    background-color:aliceblue;
+    overflow: auto;
+}
+
+.messages-panel {
+    float: right;
+    width:70%;
+    padding-left: 5%;
+}
+
+.messages-panel h1 {
+    margin:0;
+    padding:0;
+        font-size: 200%;
+    font-weight:600;
+}
+
+.chat-rooms {
+    float:left;
+    width: 30%;
+    height: 100vh;;
+    background-color: bisque;
+    margin: 0;
+}
+
+.chat-room-list li {
+    list-style: none;
+    text-transform: uppercase;
+}
+
 .chat-rooms .buttonDemo {
 
     margin-right: 5%;

@@ -1,0 +1,33 @@
+<div ng-controller="MessagesCtrl" class="messages-panel">
+  
+<h1>Room 1</h1>
+
+  <p>
+    <button type="button" class="btn btn-default btn-sm" ng-click="status.open = !status.open">Open all messages</button>
+  </p>
+
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" ng-model="oneAtATime">
+      Open only one at a time
+    </label>
+  </div>
+    <uib-accordion close-others="oneAtATime">
+        <div uib-accordion-group class="panel-default" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+            <uib-accordion-heading>
+                <div class="accordion-div">
+                    <div class="user-name">Hey!</div> 
+                    <div class="time-stamp">Static header, initially expanded</div>
+                </div>
+            </uib-accordion-heading>
+            
+      This content is straight in the template.
+    </div>
+        <div uib-accordion-group class="panel-default" heading="Static Header, initially expanded" is-open="status.isSecondOpen" is-disabled="status.isFirstDisabled">
+      This content is straight in the template.
+    </div>
+        <div uib-accordion-group class="panel-default" heading="Static Header, initially expanded" is-open="status.isThirdOpen" is-disabled="status.isFirstDisabled">
+      This content is straight in the template.
+    </div>
+  </uib-accordion>
+</div>

@@ -1,11 +1,12 @@
-.chat-rooms {
-    width: 30%;
-    height: 100vh;;
-    background-color: bisque;
-    margin: 0;
+.user-name {
+    float:left;
+    font-weight: bold;
 }
 
-.chat-room-list li {
-    list-style: none;
-    text-transform: uppercase;
+ .time-stamp {
+    float:right;
+}
+
+.accordion-div {
+    padding-bottom: 3%;
 }
