@@ -1,5 +1,5 @@
 (function() {
-     function MessagesCtrl($scope, $firebaseArray, $log, Room) {
+     function MessagesCtrl($scope, $firebaseArray, $log, Room, Messages) {
          $scope.roomName = "No room selected";
          $scope.currentRoom = null;
          $scope.currentRoomId = null;
@@ -7,14 +7,16 @@
          var ctrl = this;
          
          var update = function() {
+             $log.info("in MessagesCtrl update");
             $scope.roomName = Room.currentRoomName;
             $scope.currentRoomId = Room.currentRoomId;
-            $scope.messages = Room.getByRoomId(Room.currentRoomId);
+            $scope.messages = Messages.getByRoomId(Room.currentRoomId);
+             $log.info("number of messages: " + $scope.messages.length);
             $scope.oneAtATime = false;
-            $scope.openAll();  
+            $scope.openAll();
          }
          
-         Room.registerCallback(update);
+         Room.registerCallback(update, "MessagesCtrl");
         
 		$scope.oneAtATime = true;
 
@@ -37,7 +39,6 @@
                 if ($scope.oneAtATime) {
                     $scope.closeAll();
                 }
-                //$log.info("now it should be true");
                 message.open = true;
             }
         }
@@ -45,5 +46,5 @@
  
      angular
          .module('blocChat')
-         .controller('MessagesCtrl', ['$scope', '$firebaseArray', '$log', 'Room', MessagesCtrl]);
+         .controller('MessagesCtrl', ['$scope', '$firebaseArray', '$log', 'Room', 'Messages', MessagesCtrl]);
  })();
