@@ -1,12 +1,11 @@
 (function() {
     function Messages($firebaseArray, $log) {
         var msgsRef = firebase.database().ref().child("messages");           
+        var messages = $firebaseArray(msgsRef);
         
         var Messages = {};
 
-
         Messages.getByRoomId = function(roomId) {
-            var messages = $firebaseArray(msgsRef);
             console.log("in Messages, number of messages = " + messages.length);
             var msgs = [];
                 for (var i=0; i<messages.length; i++) {

@@ -1,9 +1,8 @@
 (function() {
      function MessagesCtrl($scope, $firebaseArray, $log, Room, Messages) {
          $scope.roomName = "No room selected";
-         $scope.currentRoom = null;
          $scope.currentRoomId = null;
-         
+         $scope.messagesDescription = "0 messages";
          var ctrl = this;
          
          var update = function() {
@@ -12,6 +11,15 @@
             $scope.currentRoomId = Room.currentRoomId;
             $scope.messages = Messages.getByRoomId(Room.currentRoomId);
              $log.info("number of messages: " + $scope.messages.length);
+             $scope.numMessages = $scope.messages.length;
+            if ($scope.messages.length == 0) {
+                $scope.messagesDescription = "0 messages";
+            } else if ($scope.messages.length == 1) {
+                $scope.messagesDescription = "1 message";
+            } else {
+                $scope.messagesDescription = $scope.messages.length + " message";
+            }
+             
             $scope.oneAtATime = false;
             $scope.openAll();
          }
