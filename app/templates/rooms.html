@@ -7,6 +7,7 @@
             <!--<div>{{data.roomName}}</div>-->
             <div class="chat-rooms-title">Bloc Chat</div>
         </div>
+        <div class="welcome-msg">Welcome, {{username}}!</div>
         <ul class="chat-room-list" ng-repeat="room in rooms.rooms track by $index">
             <li class="room-name"><a href="" ng-click="setRoom(room)" ng-class="room.class || 'unselected'">{{room.$value}}</a></li>
          </ul>

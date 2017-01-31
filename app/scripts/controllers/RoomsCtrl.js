@@ -1,7 +1,8 @@
 (function() {
-     function RoomsCtrl($scope, $firebaseArray, $log, Room) {
+     function RoomsCtrl($scope, $firebaseArray, $log, Room, $cookies) {
          this.rooms = Room.all;
-         
+         $scope.username = $cookies.get("blocChatCurrentUser");
+     
          var ctrl = this;
          
          var update = function() {
@@ -29,5 +30,5 @@
  
      angular
          .module('blocChat')
-         .controller('RoomsCtrl', ['$scope', '$firebaseArray', '$log', 'Room', RoomsCtrl]);
+         .controller('RoomsCtrl', ['$scope', '$firebaseArray', '$log', 'Room', '$cookies', RoomsCtrl]);
  })();
