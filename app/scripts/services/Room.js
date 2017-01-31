@@ -2,8 +2,6 @@
     function Room($firebaseArray, $log) {
         var ref = firebase.database().ref().child("rooms");
         var rooms = $firebaseArray(ref);
-        //var msgsRef = firebase.database().ref().child("messages");
-        //var messages = $firebaseArray(msgsRef);
         
         var callbacks = [];
         var notify = function() {
