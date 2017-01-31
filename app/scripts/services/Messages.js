@@ -1,29 +1,26 @@
 (function() {
-  function Messages($firebaseArray, $log) {
-      
-    var msgsRef = firebase.database().ref().child("messages");
-    var messages = $firebaseArray(msgsRef);
+    function Messages($firebaseArray, $log) {
+        var msgsRef = firebase.database().ref().child("messages");           
+        var messages = $firebaseArray(msgsRef);
+        
+        var Messages = {};
 
-    return {
-      getByRoomId: function (roomId) {
-          $log.info("roomId = " + roomId);
-          //var msgs = [];
-          var msgs = msgsRef.orderByChild("roomId").equals(roomId);
-          $log.info("msgs = " + msgs);
-          for (var i=0; i<messages.length; i++) {
-              var message = messages[i];
-              $log.info(message);
-              $log.info("message.roomId = " + message.roomId);
-              if (message.roomId == roomId) {
-                  msgs.push(message);
-              }
-          }
-          return msgs;
-      }
-    };
-  }
+        Messages.getByRoomId = function(roomId) {
+            console.log("in Messages, number of messages = " + messages.length);
+            var msgs = [];
+                for (var i=0; i<messages.length; i++) {
+                    var message = messages[i];
+                    if (message.roomId == roomId) {
+                        msgs.push(message);
+                    }
+                }
+            return msgs;
+        }
 
-  angular
-    .module('blocChat')
-    .factory('Messages', ['$firebaseArray', '$log', Messages]);
+        return Messages;
+    }
+
+    angular
+        .module('blocChat')
+        .factory('Messages', ['$firebaseArray', '$log', Messages]);
 })();

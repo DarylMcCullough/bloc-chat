@@ -2,31 +2,38 @@
     function Room($firebaseArray, $log) {
         var ref = firebase.database().ref().child("rooms");
         var rooms = $firebaseArray(ref);
-      
-        var msgsRef = firebase.database().ref().child("messages");
-        var messages = $firebaseArray(msgsRef);
-
-        return {
-            all: rooms,
-            getByRoomId: function (roomId) {
-                //$log.info("roomId = " + roomId);
-                //var msgs2 = msgsRef.orderByChild("roomId").equalTo(roomId);
-                //$log.info("msgs2 = " + msgs2);
-                //var msgs3 = $firebaseArray(msgs2);
-                //$log.info("msgs3 = " + msgs3);
-                var msgs = [];
-                for (var i=0; i<messages.length; i++) {
-                    var message = messages[i];
-                    //$log.info(message);
-                    //$log.info("message.roomId = " + message.roomId);
-                    if (message.roomId == roomId) {
-                        msgs.push(message);
-                    }
-                }
-                return msgs;
-            }
+        //var msgsRef = firebase.database().ref().child("messages");
+        //var messages = $firebaseArray(msgsRef);
         
-        };
+        var callbacks = [];
+        var notify = function() {
+            for (var i=0; i<callbacks.length; i++) {
+                callbacks[i].callback();
+            }
+        }
+        
+        
+        var Room = {};
+        var currentRoom = null;
+        Room.registerCallback = function(cb, tag) {
+            var entry = {
+                callback: cb,
+                tag: tag
+            }
+            
+            callbacks.push(entry);
+        }
+        Room.currentRoomName = null;
+        Room.currentRoomId = null;
+        Room.setRoom = function(room) {
+            currentRoom = room;
+            Room.currentRoomName = room.$value;
+            Room.currentRoomId = room.$id;
+            notify();
+        }
+        
+        Room.all = rooms;
+        return Room;
     }
 
     angular

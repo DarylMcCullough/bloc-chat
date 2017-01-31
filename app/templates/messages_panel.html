@@ -1,12 +1,11 @@
-<div class="messages-panel">
+<div class="messages-panel" ng-controller="MessagesCtrl">
   
-<h1>{{roomName}}</h1>
-<h2>{{getCurrentUser()}}</h2>
-<span ng-show="currentRoom != null">{{messages.length}} messages</span>
+<h1>{{roomName}}</h1> 
+<span ng-show="currentRoomId != null">{{messages.length}} messages</span>
 
   <div class="chat-room-buttons" ng-show="messages.length > 0">
-    <button type="button" class="btn btn-default btn-sm" ng-click="closeAll()" ng-disabled="currentRoom == null">Close all messages</button>
-    <button type="button" class="btn btn-default btn-sm" ng-click="openAll()" ng-disabled="oneAtATime || currentRoom == null">Open all messages</button>
+    <button type="button" class="btn btn-default btn-sm" ng-click="closeAll()" ng-disabled="currentRoomId == null">Close all messages</button>
+    <button type="button" class="btn btn-default btn-sm" ng-click="openAll()" ng-disabled="oneAtATime || currentRoomId == null">Open all messages</button>
   </div>
 
   <div class="checkbox" ng-show="messages.length > 0">
