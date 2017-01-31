@@ -1,0 +1,83 @@
+diff --git a/app/pages/index.html b/app/pages/index.html
+index 992942e..1fa2586 100755
+--- a/app/pages/index.html
++++ b/app/pages/index.html
+@@ -33,6 +33,7 @@
+     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-animate.js"></script>
+     <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-touch.min.js"></script>
++    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-cookies.js"></script>
+     <script src="/scripts/app.js"></script>
+     <script src="/scripts/services/Room.js"></script>
+     <script src="/scripts/controllers/RoomsCtrl.js"></script>
+diff --git a/app/scripts/app.js b/app/scripts/app.js
+index 879adb4..713e65e 100755
+--- a/app/scripts/app.js
++++ b/app/scripts/app.js
+@@ -1,21 +1,44 @@
+  (function() {
+-     function config($stateProvider, $locationProvider) {
+-        $locationProvider
+-            .html5Mode({
+-                enabled: true,
+-                requireBase: false
+-        });
+-         
+-        $stateProvider
+-         .state('rooms', {
+-             url: '/',
+-             controller: 'RoomsCtrl as rooms',
+-             templateUrl: '/templates/rooms.html'
+-          })
+-
+- }
+-     
+-angular
+-    .module('blocChat', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'ui.router', 'firebase'])
+-    .config(config);
+-})();
+\ No newline at end of file
++ 	function config($stateProvider, $locationProvider) {
++ 		$locationProvider.html5Mode({
++ 			enabled: true,
++ 			requireBase: false
++ 		});
++ 		$stateProvider.state('rooms', {
++ 			url: '/',
++ 			controller: 'RoomsCtrl as rooms',
++ 			templateUrl: '/templates/rooms.html'
++ 		})
++ 	}
++     function getUserName($uibModal, $cookies) {
++         var username = $cookies.get('blocChatCurrentUser');
++         if (username != null && username !== "") {
++             console.log("Hey: got a username: " + username);
++             return;
++         }
++			var modalInstance = $uibModal.open({
++				ariaLabelledBy: 'modal-title',
++				ariaDescribedBy: 'modal-body',
++				templateUrl: '/templates/getUsername.html',
++				controller: function($scope, $uibModalInstance) {
++                    $scope.ok = function () {
++                        if ($scope.username != null && $scope.username !== "") {
++                            $uibModalInstance.close($scope.username);
++                        }
++                    };
++                }
++                
++            });
++			modalInstance.result.then(function(x) {
++				console.log('Modal dismissed at: ' + new Date());
++                console.log('username: ' + x);
++                if (x != null && x.length > 0) {
++                    $cookies.put('blocChatCurrentUser', x);
++                }
++			});
++		};
++ 	angular
++        .module('blocChat', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'ui.router', 'firebase', 'ngCookies'])
++        .config(config)
++        .run(['$uibModal', '$cookies', getUserName]);
++ })();
+\ No newline at end of file
