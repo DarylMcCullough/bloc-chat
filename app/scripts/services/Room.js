@@ -5,14 +5,26 @@
         var msgsRef = firebase.database().ref().child("messages");
         var messages = $firebaseArray(msgsRef);
         
+        var callbacks = [];
+        var notify = function() {
+            for (var i=0; i<callbacks.length; i++) {
+                callbacks[i]();
+            }
+        }
+        
+        
         var Room = {};
         var currentRoom = null;
+        Room.registerCallback = function(cb) {
+            callbacks.push(cb);
+        }
         Room.currentRoomName = null;
         Room.currentRoomId = null;
         Room.setRoom = function(room) {
             currentRoom = room;
             Room.currentRoomName = room.$value;
             Room.currentRoomId = room.$id;
+            notify();
         }
         
         Room.all = rooms;

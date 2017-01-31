@@ -7,22 +7,34 @@
          
          var ctrl = this;
          
-        $scope.setRoom = function(room) {
+         var update = function() {
+    
             for (var i=0; i<ctrl.rooms.length; i++) {
-                ctrl.rooms[i].class = "unselected";
+                var room = ctrl.rooms[i];
+                if (room.$id == Room.currentRoomId) {
+                    $scope.currentRoom = room;
+                    $scope.roomName = room.$value;
+                    $scope.currentRoomId = room.$id;
+                    $scope.messages = Room.getByRoomId(room.$id);
+                    room.class = "selected";
+                } else {
+                    room.class = "unselected";
+                }
             }
-            room.class = "selected";
 
-            $scope.currentRoom = room;
-            $scope.roomName = room.$value;
-            $scope.currentRoomId = room.$id;
-            $scope.messages = Room.getByRoomId($scope.currentRoomId);
+
             $scope.oneAtATime = false;
-            $scope.openAll();
+            $scope.openAll();  
+         }
+         
+        $scope.setRoom = function(room) {
+            
+            Room.setRoom(room);
         }
         
 		$scope.oneAtATime = true;
 
+        Room.registerCallback(update);
         $scope.messages = [];
         $scope.openAll = function() {        
             for(var i=0; i < $scope.messages.length; i++) {
