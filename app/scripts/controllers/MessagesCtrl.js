@@ -1,26 +1,32 @@
-//http://plnkr.co/edit/WUKEfcBrSf3XrIQAik67?p=preview
-//http://stackoverflow.com/questions/20887536/angular-ui-bootstrap-accordion-collapse-expand-all
-
 (function() {
-	var MessagesCtrl = function($scope, $log) {
-        $scope.roomName = "Room 1";
+     function MessagesCtrl($scope, $firebaseArray, $log, Room, Messages) {
+         $scope.roomName = "No room selected";
+         $scope.currentRoomId = null;
+         $scope.messagesDescription = "0 messages";
+         var ctrl = this;
+         
+         var update = function() {
+            $scope.roomName = Room.currentRoomName;
+            $scope.currentRoomId = Room.currentRoomId;
+            $scope.messages = Messages.getByRoomId(Room.currentRoomId);
+             $scope.numMessages = $scope.messages.length;
+            if ($scope.messages.length == 0) {
+                $scope.messagesDescription = "0 messages";
+            } else if ($scope.messages.length == 1) {
+                $scope.messagesDescription = "1 message";
+            } else {
+                $scope.messagesDescription = $scope.messages.length + " message";
+            }
+             
+            $scope.oneAtATime = false;
+            $scope.openAll();
+         }
+         
+         Room.registerCallback(update, "MessagesCtrl");
+        
 		$scope.oneAtATime = true;
-		var msg1 = {
-            userName: "Fred",
-            sentAt: "10/22/2016",
-            content: "Hello"
-        };
-        var msg2 = {
-            userName: "John",
-            sentAt: "10/23/2016",
-            content: "Hi"
-        };
-        var msg3 = {
-            userName: "Jane",
-            sentAt: "10/24/2016",
-            content: "Howdy"
-        };
-        $scope.messages = [msg1, msg2, msg3];
+
+        $scope.messages = [];
         $scope.openAll = function() {        
             for(var i=0; i < $scope.messages.length; i++) {
                 var message = $scope.messages[i];
@@ -39,10 +45,12 @@
                 if ($scope.oneAtATime) {
                     $scope.closeAll();
                 }
-                $log.info("now it should be true");
                 message.open = true;
             }
         }
-	};
-	angular.module('blocChat').controller('MessagesCtrl', ['$scope', '$log', MessagesCtrl]);
-})();
+     }
+ 
+     angular
+         .module('blocChat')
+         .controller('MessagesCtrl', ['$scope', '$firebaseArray', '$log', 'Room', 'Messages', MessagesCtrl]);
+ })();
