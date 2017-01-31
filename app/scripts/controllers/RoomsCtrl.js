@@ -5,12 +5,18 @@
          $scope.currentRoom = null;
          $scope.currentRoomId = null;
          
+         var ctrl = this;
+         
         $scope.setRoom = function(room) {
+            for (var i=0; i<ctrl.rooms.length; i++) {
+                ctrl.rooms[i].class = "unselected";
+            }
+            room.class = "selected";
+
             $scope.currentRoom = room;
             $scope.roomName = room.$value;
             $scope.currentRoomId = room.$id;
             $scope.messages = Room.getByRoomId($scope.currentRoomId);
-            //$log.info("$scope.messages.length: " + $scope.messages.length);
             $scope.oneAtATime = false;
             $scope.openAll();
         }
