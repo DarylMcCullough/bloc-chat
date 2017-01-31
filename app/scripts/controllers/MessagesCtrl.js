@@ -6,11 +6,9 @@
          var ctrl = this;
          
          var update = function() {
-             $log.info("in MessagesCtrl update");
             $scope.roomName = Room.currentRoomName;
             $scope.currentRoomId = Room.currentRoomId;
             $scope.messages = Messages.getByRoomId(Room.currentRoomId);
-             $log.info("number of messages: " + $scope.messages.length);
              $scope.numMessages = $scope.messages.length;
             if ($scope.messages.length == 0) {
                 $scope.messagesDescription = "0 messages";

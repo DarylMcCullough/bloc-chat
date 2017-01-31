@@ -1,7 +1,7 @@
 <div class="messages-panel" ng-controller="MessagesCtrl">
   
 <h1>{{roomName}}</h1> 
-<span ng-show="currentRoomId != null">{{messages.length}} messages</span>
+<span ng-show="currentRoomId != null">{{messagesDescription}}</span>
 
   <div class="chat-room-buttons" ng-show="messages.length > 0">
     <button type="button" class="btn btn-default btn-sm" ng-click="closeAll()" ng-disabled="currentRoomId == null">Close all messages</button>

@@ -33,6 +33,12 @@
     
 }
 
+.welcome-msg {
+    margin: 5%;
+    font-size: 180%;
+    font-weight: bold;
+}
+
 .room-name a {
     text-decoration: none;
     color: rgb(126, 122, 183);

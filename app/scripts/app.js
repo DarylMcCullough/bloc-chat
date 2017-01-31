@@ -13,7 +13,7 @@
      function getUserName($uibModal, $cookies) {
          var username = $cookies.get('blocChatCurrentUser');
          if (username != null && username !== "") {
-             console.log("Hey: got a username: " + username);
+             console.log("Current username: " + username);
              return;
          }
 			var modalInstance = $uibModal.open({

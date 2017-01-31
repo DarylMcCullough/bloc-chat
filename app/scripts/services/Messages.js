@@ -6,7 +6,6 @@
         var Messages = {};
 
         Messages.getByRoomId = function(roomId) {
-            console.log("in Messages, number of messages = " + messages.length);
             var msgs = [];
                 for (var i=0; i<messages.length; i++) {
                     var message = messages[i];
