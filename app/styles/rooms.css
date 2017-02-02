@@ -82,15 +82,11 @@
     font-weight:600;
 }
 
-.message-input {
-    margin-top: 30%;
-}
-
 .footer {
     margin-top:20%;
     width: 100%;
 }
 
-#send-message-form {
+#message-input {
     width:100%;
 }
