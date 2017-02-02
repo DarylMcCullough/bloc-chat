@@ -3,6 +3,9 @@
          $scope.roomName = "No room selected";
          $scope.currentRoomId = null;
          $scope.messagesDescription = "0 messages";
+         $scope.inputOpen = true;
+         $scope.otherOpen = false;
+
          var ctrl = this;
          
          var update = function() {
@@ -22,7 +25,7 @@
             $scope.openAll();
          }
          
-         Room.registerCallback(update, "MessagesCtrl");
+        Room.registerCallback(update, "MessagesCtrl");
         
 		$scope.oneAtATime = true;
 
@@ -39,6 +42,60 @@
                 var message = $scope.messages[i];
                 message.open = false;
             }
+        }
+        
+        
+        //----------
+         $scope.master = {};
+
+      $scope.update = function(msg) {
+        var content = msg.content;
+        var username = $scope.username;
+            var time = new Date();
+            var dateString = time.getFullYear() + "/" + (time.getMonth() + 1) + "/" + (time.getDate());
+            var hours = time.getHours();
+            var amPm = "pm"
+            if (hours < 12) {
+                amPm = "am";
+            }
+            if (hours > 12) {
+                hours -= 12;
+            }
+            if (hours == 0) {
+                hours = 12;
+            }
+            dateString += " " + hours + ":" + time.getMinutes() + ":" + time.getSeconds();
+        
+            var room = $scope.currentRoomId;
+            Messages.send(username, room, content, dateString);
+            msg.content = "";
+      };
+
+      $scope.reset = function() {
+        $scope.messageToSend = angular.copy($scope.master);
+      };
+
+      $scope.reset();
+        
+        $scope.foo = "fooey";
+                
+        $scope.update1 = function(msg) {
+            
+            var content = $scope.master.content;
+            $log.info("content: " + content);
+            var keys = Object.keys($scope);
+            for (var i=0; i<keys.length; i++) {
+                var key = keys[i];
+                var value = $scope[key];
+                $log.info("key: " + key + ", value: " + value);
+            }
+            Messages.send(username, room, content, dateString);
+            $scope.messagetoSend = "";
+
+        }
+        
+        $scope.cancel = function() {
+            
         }
         $scope.toggle = function(message) {
             if (message.open) {

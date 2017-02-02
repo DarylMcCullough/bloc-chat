@@ -1,13 +1,13 @@
 .whole-rooms-window {
-    width: 100%;
     background-color:aliceblue;
-    overflow: auto;
+    overflow: scroll;
 }
 
 .messages-panel {
-    float: right;
-    width:70%;
-    padding: 2%;
+    height: 100vh;
+    min-height: 200px;
+    background-color:cornsilk;
+    overflow: scroll;
 }
 
 .room-name a.unselected:hover {
@@ -52,11 +52,15 @@
 }
 
 .chat-rooms {
-    float:left;
     width: 30%;
-    height: 100vh;;
+    height: 100vh;
     background-color: bisque;
     margin: 0;
+    overflow: scroll;
+}
+
+.lower-chat-room-list {
+    height: 100%;
 }
 
 .chat-room-list li {
@@ -65,17 +69,28 @@
 }
 
 .chat-rooms .buttonDemo {
-
-    margin-right: 5%;
+    width: 100%;
+    padding: 2%;
     /*margin-top: 2%;*/
 }
 
 .chat-rooms .buttonDemo button {
-    float: right;
-    margin-top: 2%;
 }
 
 .chat-rooms .chat-rooms-title {
     font-size: 200%;
     font-weight:600;
+}
+
+.message-input {
+    margin-top: 30%;
+}
+
+.footer {
+    margin-top:20%;
+    width: 100%;
+}
+
+#send-message-form {
+    width:100%;
 }

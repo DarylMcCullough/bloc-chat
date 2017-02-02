@@ -15,6 +15,16 @@
                 }
             return msgs;
         }
+        
+        Messages.send = function(username, room, content, time) {
+            var message = {
+                userName: username,
+                roomId: room,
+                content: content,
+                sentAt: time
+            }
+            messages.$add(message);
+        }
 
         return Messages;
     }

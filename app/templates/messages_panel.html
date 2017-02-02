@@ -1,4 +1,4 @@
-<div class="messages-panel" ng-controller="MessagesCtrl">
+<div class="messages-panel col-md-8 wrap" ng-controller="MessagesCtrl">
   
 <h1>{{roomName}}</h1> 
 <span ng-show="currentRoomId != null">{{messagesDescription}}</span>
@@ -27,4 +27,12 @@
       {{message.content}}
     </div>
   </uib-accordion>
+    
+
+<div class="footer">
+      <ng-include src="'/templates/sendMessage.html'"></ng-include>
 </div>
+</div>
+
+
+

@@ -1,16 +1,18 @@
-<section class="whole-rooms-window">
-    <section class="chat-rooms">
-        <div class="buttonDemo modal-demo" ng-controller="ChatRoomsBtnCtrl">
-            <button type="button" class="btn"  ng-click="open()">
-                New Chatroom
-                </button>
+<section class="whole-rooms-window row">
+    <section class="chat-rooms col-md-3">
+        <div class="buttonDemo modal-demo row" ng-controller="ChatRoomsBtnCtrl">
             <!--<div>{{data.roomName}}</div>-->
-            <div class="chat-rooms-title">Bloc Chat</div>
+            <div class="chat-rooms-title col-md-9">Bloc Chat</div>
+            <button type="button" class="btn col-md-3"  ng-click="open()">
+                New Chatroom
+            </button>
         </div>
         <div class="welcome-msg">Welcome, {{username}}!</div>
+        <div class="lower-chat-room-list">
         <ul class="chat-room-list" ng-repeat="room in rooms.rooms track by $index">
             <li class="room-name"><a href="" ng-click="setRoom(room)" ng-class="room.class || 'unselected'">{{room.$value}}</a></li>
          </ul>
+        </div>
     </section>
     <ng-include src="'/templates/messages_panel.html'"></ng-include>
 </section>
