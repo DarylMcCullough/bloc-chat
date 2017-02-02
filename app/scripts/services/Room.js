@@ -31,6 +31,12 @@
         }
         
         Room.all = rooms;
+        
+        Room.addRoom = function(roomName) {
+            var rooms = Room.all;
+            rooms.$add({ $value: roomName });
+        }
+        
         return Room;
     }
 
