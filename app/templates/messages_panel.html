@@ -1,4 +1,4 @@
-<div class="messages-panel col-md-8 wrap" ng-controller="MessagesCtrl">
+<div class="messages-panel wrap" ng-controller="MessagesCtrl">
   
 <h1>{{roomName}}</h1> 
 <span ng-show="currentRoomId != null">{{messagesDescription}}</span>
@@ -14,12 +14,13 @@
       Open only one at a time
     </label>
   </div>
+    <div class="messages-list">
     
-    <uib-accordion close-others="oneAtATime" ng-repeat="message in messages" ng-show="messages.length > 0">        
+    <uib-accordion close-others="oneAtATime" ng-repeat="message in messages track by $index" ng-show="messages.length > 0">        
         <div uib-accordion-group class="panel-default" is-open="message.open" ng-click="toggle(message)">
             <uib-accordion-heading>
                 <div class="accordion-div">
-                    <div class="user-name">{{message.userName}}</div> 
+                    <div class="user-name">{{$index + 1}}. {{message.userName}}</div> 
                     <div class="time-stamp">{{message.sentAt}}</div>                    
                 </div>
             </uib-accordion-heading>
@@ -27,6 +28,7 @@
       {{message.content}}
     </div>
   </uib-accordion>
+    </div>
     
 
 <div class="footer">
