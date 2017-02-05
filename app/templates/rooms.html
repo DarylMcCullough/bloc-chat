@@ -1,11 +1,9 @@
-<section class="whole-rooms-window row">
-    <section class="chat-rooms col-md-3">
-        <div class="buttonDemo modal-demo row" ng-controller="ChatRoomsBtnCtrl">
+<section class="whole-rooms-window">
+    <section class="chat-rooms container">
+        <div class="buttonDemo row" ng-controller="ChatRoomsBtnCtrl">
             <!--<div>{{data.roomName}}</div>-->
-            <div class="chat-rooms-title col-md-9">Bloc Chat</div>
-            <button type="button" class="btn col-md-3"  ng-click="open()">
-                New Chatroom
-            </button>
+            <div class="chat-rooms-title col-md-8">Bloc Chat</div>
+            <button type="button" class="btn col-md-4"  ng-click="open()">New Chatroom</button>
         </div>
         <div class="welcome-msg">Welcome, {{username}}!</div>
         <div class="lower-chat-room-list">

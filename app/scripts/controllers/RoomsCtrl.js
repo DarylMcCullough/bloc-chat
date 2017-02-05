@@ -1,6 +1,17 @@
 (function() {
      function RoomsCtrl($scope, $firebaseArray, $log, Room, $cookies) {
-         this.rooms = Room.all;
+         //this.rooms = Room.all;
+         this.rooms = [];
+         var myRooms = [];
+         $scope.updateRooms = function() {
+             for (var i=0; i<20; i++) {
+                 var room = {};
+                 room.$value = "room" + i;
+                 room.$id = "id" + i;
+                 myRooms.push(room);
+             }
+         }
+
          $scope.username = $cookies.get("blocChatCurrentUser");
      
          var ctrl = this;
@@ -23,7 +34,8 @@
             Room.setRoom(room);
         }
         
-
+        $scope.updateRooms();
+        this.rooms = myRooms;
         Room.registerCallback(update, "RoomsCtrl");
 
      }
