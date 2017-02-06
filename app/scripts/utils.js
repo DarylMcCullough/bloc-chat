@@ -1,12 +1,14 @@
 function mySignUp(setError, username, email, password, $firebaseArray, $cookies, $uibModalInstance) {
     var ref = firebase.database().ref().child("users");
     var users = $firebaseArray(ref);
-    for (var i=0; i< users.length; i++) {
-        if (username == users[i].username) {
+    var keys = users.$getIndex();
+    for (var i=0; i< keys.length; i++) {
+        var user = users[keys[i]];
+        if (username == user.username) {
             setError("Error: username already taken")
             return;
         }
-        if (email == users[i].email) {
+        if (email == user.email) {
             setError("Error: email already taken");
             return;
         }
@@ -15,6 +17,11 @@ function mySignUp(setError, username, email, password, $firebaseArray, $cookies,
     firebase.auth()
         .createUserWithEmailAndPassword(email, password)
         .then(function(user) {
+            var entry = {};
+            entry.username = username;
+            entry.email = email;
+            entry.loggedIn = true;
+            users.$add(entry);
             $cookies.put('blocChatCurrentUser', username);
             $uibModalInstance.close(username);
         })
@@ -24,34 +31,52 @@ function mySignUp(setError, username, email, password, $firebaseArray, $cookies,
 }
 
 function myLogIn(setError, username, email, password, $firebaseArray, $cookies, $uibModalInstance) {
+    console.log("in myLogIn");
     var ref = firebase.database().ref().child("users");
     var users = $firebaseArray(ref);
-    for (var i=0; i< users.length; i++) {
-        if (username == users[i].username) {
+    var keys = users.$getIndex();
+    var currentUser = null;
+    for (var i=0; i< keys.length; i++) {
+        var user = users[keys[i]];
+        if (username == user.username) {
             if (email == "") {
-                email = users[i].email;
+                email = user.email;
+                currentUser = user;
                 break;
             }
-            if (email != users[i].email) {
+            if (email != user.email) {
                 setError("Error: that email does not match that username");
                 return;
             }
+            currentUser = user;
+            break;
         }
-        if (email == users[i].email) {
+        if (email == user.email) {
             if (username == "") {
-                username = users[i].username;
+                username = user.username;
+                currentUser = user;
                 break;
             }
-            if (username != users[i].username) {
+            if (username != user.username) {
                 setError("Error: email already taken");
                 return;
             }
+            currentUser = user;
+            break;
         }
+    }
+    
+    if (currentUser == null) {
+        setError("Error: email or password not found");
+        return;
     }
 
     firebase.auth()
         .signInWithEmailAndPassword(email, password)
         .then(function(user) {
+            var ref = firebase.database().ref();
+            var updates = {};
+            updates['/users/' + currentUser.$id + "/loggedIn"] = true;
             $cookies.put('blocChatCurrentUser', username);
             $uibModalInstance.close(username);
         })
