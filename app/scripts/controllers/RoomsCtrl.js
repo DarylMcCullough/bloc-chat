@@ -1,5 +1,5 @@
 (function() {
-     function RoomsCtrl($scope, $firebaseArray, $log, Room, $cookies) {
+     function RoomsCtrl($scope, $firebaseArray, $log, Room, $cookies, $timeout) {
          this.rooms = Room.all;
          $scope.username = $cookies.get("blocChatCurrentUser");
      
@@ -18,17 +18,26 @@
 
          }
          
-        $scope.setRoom = function(room) {
-            
+        $scope.setRoom = function(room) {            
             Room.setRoom(room);
         }
         
-
         Room.registerCallback(update, "RoomsCtrl");
+         
+         var updateUsername = function() {
+             var username = $cookies.get("blocChatCurrentUser");
+             if (username == null || username.length == 0) {
+                 $timeout(updateUsername, 200);
+             } else {
+                 $scope.username = username;
+             }
+         }
+         
+         $timeout(updateUsername, 200);
 
      }
  
      angular
          .module('blocChat')
-         .controller('RoomsCtrl', ['$scope', '$firebaseArray', '$log', 'Room', '$cookies', RoomsCtrl]);
+         .controller('RoomsCtrl', ['$scope', '$firebaseArray', '$log', 'Room', '$cookies', '$timeout', RoomsCtrl]);
  })();

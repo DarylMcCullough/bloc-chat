@@ -6,13 +6,22 @@
 
 <div class="modal-body" id="modal-body">
 
-        <label for="usernameForm">This name will appear when you send messages</label>
+        <label for="usernameForm">This name will appear when you send messages (leave blank if already signed up)</label>
         <input ng-model = "username" id="usernameForm" class="form-control" type = "text" placeholder="Username" title=" Username">
+        </input>
+    
+        <label for="userEmailForm">Your email address</label>
+        <input ng-model = "email" id="userEmailForm" class="form-control" type = "email" placeholder="your-name@your-website.com" title=" Email">
+        </input>
+
+        <label for="userPasswordForm">Your email address</label>
+        <input ng-model = "password" id="userPasswordForm" class="form-control" type = "password" placeholder="xxxxxxxx" title=" Password">
         </input>
 </div>
         
 <div class="modal-footer">
-    <button class="btn btn-primary" type="submit" ng-click="ok()">Set username</button>
+    <button class="btn btn-primary" type="submit" ng-click="signUp()">Sign up</button>
+    <button class="btn btn-primary" type="submit" ng-click="logIn()">Log in</button>
 </div>
 </form>
 
