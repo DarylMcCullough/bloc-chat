@@ -43,12 +43,8 @@ body {
 }
 
 .welcome-msg {
-    font-size: 180%;
+    font-size: 120%;
     font-weight: bold;
-    width: 100%;
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
     font-family: 'Courgette', cursive;
 }
 

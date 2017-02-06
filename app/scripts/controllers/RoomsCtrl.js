@@ -1,5 +1,9 @@
 (function() {
-     function RoomsCtrl($scope, $firebaseArray, $log, Room, $cookies, $timeout) {
+     function RoomsCtrl($scope, $firebaseArray, $log, Room, $cookies, $timeout, $uibModal) {
+         this.logOut = function() {
+             $cookies.put('blocChatCurrentUser', "");
+             getUserName($uibModal, $cookies, $firebaseArray);
+         }
          this.rooms = Room.all;
          $scope.username = $cookies.get("blocChatCurrentUser");
      
@@ -39,5 +43,5 @@
  
      angular
          .module('blocChat')
-         .controller('RoomsCtrl', ['$scope', '$firebaseArray', '$log', 'Room', '$cookies', '$timeout', RoomsCtrl]);
+         .controller('RoomsCtrl', ['$scope', '$firebaseArray', '$log', 'Room', '$cookies', '$timeout', '$uibModal', RoomsCtrl]);
  })();

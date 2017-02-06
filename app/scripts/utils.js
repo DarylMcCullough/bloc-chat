@@ -1,11 +1,67 @@
-function mySignUp(username, email, password, $firebaseArray) {
-    var ref = firebase.database().ref().child("rooms");
-    
+function mySignUp(setError, username, email, password, $firebaseArray, $cookies, $uibModalInstance) {
+    var ref = firebase.database().ref().child("users");
+    var users = $firebaseArray(ref);
+    for (var i=0; i< users.length; i++) {
+        if (username == users[i].username) {
+            setError("Error: username already taken")
+            return;
+        }
+        if (email == users[i].email) {
+            setError("Error: email already taken");
+            return;
+        }
+    }
+
+    firebase.auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then(function(user) {
+            $cookies.put('blocChatCurrentUser', username);
+            $uibModalInstance.close(username);
+        })
+        .catch(function(error) {
+            setError("" + error);
+        });
+}
+
+function myLogIn(setError, username, email, password, $firebaseArray, $cookies, $uibModalInstance) {
+    var ref = firebase.database().ref().child("users");
+    var users = $firebaseArray(ref);
+    for (var i=0; i< users.length; i++) {
+        if (username == users[i].username) {
+            if (email == "") {
+                email = users[i].email;
+                break;
+            }
+            if (email != users[i].email) {
+                setError("Error: that email does not match that username");
+                return;
+            }
+        }
+        if (email == users[i].email) {
+            if (username == "") {
+                username = users[i].username;
+                break;
+            }
+            if (username != users[i].username) {
+                setError("Error: email already taken");
+                return;
+            }
+        }
+    }
+
+    firebase.auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(function(user) {
+            $cookies.put('blocChatCurrentUser', username);
+            $uibModalInstance.close(username);
+        })
+        .catch(function(error) {
+            setError("" + error);
+        });
 }
 
 function getUserName($uibModal, $cookies, $firebaseArray) {
     var username = $cookies.get('blocChatCurrentUser');
-    console.log("username: " + username);
     if (username != null && username !== "") {
         console.log("Current username: " + username);
         return;
@@ -15,69 +71,39 @@ function getUserName($uibModal, $cookies, $firebaseArray) {
         ariaDescribedBy: 'modal-body',
         templateUrl: '/templates/getUsername.html',
         controller: function($scope, $uibModalInstance) {
-            $scope.username = username;
-            $scope.signUp = function () {
+            $scope.error = "";
 
-                if ($scope.username == null || $scope.username == "") {
-                    return;
-                }
-                if ($scope.email == null || $scope.email == "") {
-                    return;
-                }
+            $scope.username = "";
+            $scope.email = "";
+            $scope.password = "";
+            
+            $scope.setError = function(err) {
+                $scope.error = err;
+            }
+                        
+            $scope.signUp = function () {                
+                var username = $scope.username;
+                var email = $scope.email;
+                var password = $scope.password;
+                var error = $scope.error;
+
+                var setErr = $scope.setError;
+                console.log("typeof firebasearray:" + typeof $firebaseArray);
+                mySignUp(setErr, username, email, password, $firebaseArray, $cookies, $uibModalInstance);
+            };
+            $scope.logIn = function () {
                 if ($scope.password == null || $scope.password == "") {
                     return;
                 }
                 
-                var retval = {};
-                retval.username = $scope.username;
-                retval.email = $scope.email;
-                retval.password = $scope.password;
-                retval.action = "signUp";
-                //var okay = mySignUp(username, email, password, $firebaseArray);
-                var okay = true;
-                if (okay) {
-                    $uibModalInstance.close(retval);
-                } else {
-                    alert("not okay");
-                }
-            };
-            $scope.logIn = function () {                
-                if ($scope.email == null || $scope.email == "") {
-                    return;
-                }
-                if ($scope.password == null || $scope.password == "") {
-                    return;
-                }
-                
-                var retval = {};
-                retval.username = $scope.username;
-                retval.email = $scope.email;
-                retval.password = $scope.password;
-                retval.action = "logIn";
-                $uibModalInstance.close(retval);
-            };
+                var username = $scope.username;
+                var email = $scope.email;
+                var password = $scope.password;
+                var error = $scope.error;
+
+                myLogIn($scope.setError, username, email, password, $firebaseArray, $cookies, $uibModalInstance);
+            }
         }
 
-    });
-    modalInstance.result.then(function(obj) {
-        console.log('Modal dismissed at: ' + new Date());
-        var username = obj.username;
-        
-        var email = obj.email;
-        
-        var password = obj.password;
-        
-        var action = obj.action;
-        
-        if (action == "logIn") {
-            logIn(email, password);
-        }
-        console.log('username: ' + username);
-        console.log('email: ' + email);
-        console.log("password: " + password);                
-        
-        if (username != null && username.length > 0) {
-            $cookies.put('blocChatCurrentUser', username);
-        }
     });
 };

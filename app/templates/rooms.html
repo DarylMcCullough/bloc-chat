@@ -5,7 +5,10 @@
             <div class="chat-rooms-title col-md-8">Bloc Chat</div>
             <button type="button" class="btn col-md-4"  ng-click="open()">New Chatroom</button>
         </div>
-        <div class="welcome-msg">Welcome, {{username}}!</div>
+        <div class="buttonDemo row" ng-show="username != null && username.length > 0">
+            <div class="welcome-msg col-md-8">Welcome, {{username}}!</div>
+            <button type="button" class="btn col-md-4"  ng-click="rooms.logOut()">Log out</button>
+        </div>
         <div class="lower-chat-room-list">
         <ul class="chat-room-list" ng-repeat="room in rooms.rooms track by $index">
             <li class="room-name"><a href="" ng-click="setRoom(room)" ng-class="room.class || 'unselected'">{{room.$value}}</a></li>

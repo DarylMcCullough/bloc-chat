@@ -1,27 +1,27 @@
 <form name = "GetUsernameForm">
 <div class="modal-header">
-    <h3 class="modal-title" id="modal-title">Set a username</h3>
+    <h3 class="modal-title" id="modal-title">Sign Up/Log In</h3>
 </div>
-
 
 <div class="modal-body" id="modal-body">
 
-        <label for="usernameForm">This name will appear when you send messages (leave blank if already signed up)</label>
+        <label for="usernameForm">This name will appear when you send messages (if already signed up, fill in username or email)</label>
         <input ng-model = "username" id="usernameForm" class="form-control" type = "text" placeholder="Username" title=" Username">
         </input>
     
-        <label for="userEmailForm">Your email address</label>
+        <label for="userEmailForm">Your email address (if already signed up, fill in username or email)</label>
         <input ng-model = "email" id="userEmailForm" class="form-control" type = "email" placeholder="your-name@your-website.com" title=" Email">
         </input>
 
-        <label for="userPasswordForm">Your email address</label>
+        <label for="userPasswordForm">Password</label>
         <input ng-model = "password" id="userPasswordForm" class="form-control" type = "password" placeholder="xxxxxxxx" title=" Password">
         </input>
 </div>
         
 <div class="modal-footer">
-    <button class="btn btn-primary" type="submit" ng-click="signUp()">Sign up</button>
-    <button class="btn btn-primary" type="submit" ng-click="logIn()">Log in</button>
+    <div>{{error}}</div>
+    <button class="btn btn-primary" type="button" ng-click="signUp()">Sign up</button>
+    <button class="btn btn-primary" type="button" ng-click="logIn()">Log in</button>
 </div>
 </form>
 
