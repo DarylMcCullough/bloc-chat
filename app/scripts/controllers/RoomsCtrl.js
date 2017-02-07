@@ -5,6 +5,7 @@
                  .signOut()
                  .then(
         function() {
+            $log.info("I guess sign out worked");
             var ref = firebase.database().ref().child("users");
             $firebaseArray(ref)
                 .$loaded()
@@ -22,7 +23,7 @@
                     getUserName($uibModal, $cookies, $firebaseArray);
                 })}, 
         function(error) {
-                      // An error happened.
+            $log.info("oh, oh. I guess sign out didn't work");
         });
          };
                   
