@@ -4,7 +4,6 @@
              var callback = function(okay, msg) {
                  if (okay) {
                     $scope.username = $cookies.get("blocChatCurrentUser");
-                     $log.info("now, username = " + $scope.username);
                      LogIn.logIn();
                  }
              }

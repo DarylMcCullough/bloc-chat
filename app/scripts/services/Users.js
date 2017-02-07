@@ -85,7 +85,6 @@
         };
         
         Users.logOut = function(username, callback) {
-            $log.info("username: " + username);
 
             if (callback == null) {
                 callback = function(okay, err) {};
@@ -98,7 +97,6 @@
             loaded.then(
                 function(users) {
                     var user = checkUsernameEmail(users, username, "");
-                    $log.info("user: " + user);
                     if (user == null) {
                         callback(true, "user not found");
                         return;
