@@ -5,21 +5,22 @@
                  .signOut()
                  .then(
         function() {
-            $log.info("I guess sign out worked");
             var ref = firebase.database().ref().child("users");
             $firebaseArray(ref)
                 .$loaded()
                 .then(function(users) {
+                    console.log("users.length: " + users.length);
                     for (var i=0; i< users.length; i++) {
                         var user = users[i];
-                        if (username == user.username) {
+                        if ($scope.username == user.username) {
                             var updates = {};
                             updates['/users/' + user.$id + '/loggedIn'] = false;
                             firebase.database().ref().update(updates);
-                            return;
+                            break;
                         }
                     }
                     $cookies.put('blocChatCurrentUser', "");
+                    $scope.username = "";
                     getUserName($uibModal, $cookies, $firebaseArray);
                 })}, 
         function(error) {
