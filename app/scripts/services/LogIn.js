@@ -5,7 +5,6 @@
         LogIn.logIn = function() {
             var username = $cookies.get('blocChatCurrentUser');
             if (username != null && username !== "") {
-                console.log("Current username: " + username);
                 return;
             }
             
@@ -20,21 +19,14 @@
                     $scope.password = "";
             
                     $scope.setError = function(okay, username, err) {
-                        $log.info("in setError");
-                        $log.info("okay: " + okay);
-                        $log.info("err: " + err);
                         if (okay) {
                             $scope.error = "";
                             $uibModalInstance.close(username);
                             return;
                         }
                         $scope.error = err;
-                        $log.info("now, $scope.error: " + $scope.error);
-
                     }
                     $scope.signUp = function () { 
-                        $log.info("in signUp");
-                        $log.info("$scope.error: " + $scope.error);
                         var username = $scope.username;
                         var email = $scope.email;
                         var password = $scope.password;
@@ -44,7 +36,6 @@
                     };
                     
                     $scope.logIn = function () {  
-                        $log.info("in LogIn");
                         var username = $scope.username;
                         var email = $scope.email;
                         var password = $scope.password;

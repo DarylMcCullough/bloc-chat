@@ -16,18 +16,13 @@
         
         var Users = {};
         Users.signUp = function(username, email, password, callback) {
-            $log.info("in Users.signUp");
             var ref = firebase.database().ref().child("users");
             var loaded = $firebaseArray(ref).$loaded();
             loaded.then(
                 function(users) {
                     var user = checkUsernameEmail(users, username, email);
-                    $log.info("user.username: " + user.username);
-                    $log.info("username: " + username);
                     if (user != null) {
                         if (user.username == username) {
-                            $log.info("usernames are equal");
-                            $log.info("callback: " + callback);
                             callback(false, username, "Error: username exists");
                             return;
                         }
@@ -36,7 +31,6 @@
                             return;
                         }
                     }
-                    $log.info("made it to here");
                     Auth.signUp(email, password)
                     .then(function(user) {                        
                         var entry = {};

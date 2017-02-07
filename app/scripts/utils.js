@@ -85,7 +85,6 @@ function myLogIn(setError, username, email, password, $firebaseArray, $cookies, 
 function getUserName($uibModal, $cookies, $firebaseArray) {
     var username = $cookies.get('blocChatCurrentUser');
     if (username != null && username !== "") {
-        console.log("Current username: " + username);
         return;
     }
     var modalInstance = $uibModal.open({
@@ -110,7 +109,6 @@ function getUserName($uibModal, $cookies, $firebaseArray) {
                 var error = $scope.error;
 
                 var setErr = $scope.setError;
-                console.log("typeof firebasearray:" + typeof $firebaseArray);
                 mySignUp(setErr, username, email, password, $firebaseArray, $cookies, $uibModalInstance);
             };
             $scope.logIn = function () {

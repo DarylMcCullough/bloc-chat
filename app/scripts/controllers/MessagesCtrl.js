@@ -76,18 +76,14 @@
       };
 
       $scope.reset();
-        
-        $scope.foo = "fooey";
-                
+                    
         $scope.update1 = function(msg) {
             
             var content = $scope.master.content;
-            $log.info("content: " + content);
             var keys = Object.keys($scope);
             for (var i=0; i<keys.length; i++) {
                 var key = keys[i];
                 var value = $scope[key];
-                $log.info("key: " + key + ", value: " + value);
             }
             Messages.send(username, room, content, dateString);
             $scope.messagetoSend = "";

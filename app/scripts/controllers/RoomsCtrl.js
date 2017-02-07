@@ -9,7 +9,6 @@
             $firebaseArray(ref)
                 .$loaded()
                 .then(function(users) {
-                    console.log("users.length: " + users.length);
                     for (var i=0; i< users.length; i++) {
                         var user = users[i];
                         if ($scope.username == user.username) {
@@ -24,7 +23,6 @@
                     getUserName($uibModal, $cookies, $firebaseArray);
                 })}, 
         function(error) {
-            $log.info("oh, oh. I guess sign out didn't work");
         });
          };
                   
