@@ -10,9 +10,14 @@
  			templateUrl: '/templates/rooms.html'
  		})
  	}
+     
+     function foo($uibModal, $cookies, $firebaseArray, LogIn) {
+         LogIn.logIn();
+     }
+    
 
  	angular
-        .module('blocChat', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'ui.router', 'firebase', 'ngCookies'])
+        .module('blocChat', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'ui.router', 'firebase', 'ngCookies', 'blocChatUtils'])
         .config(config)
-        .run(['$uibModal', '$cookies', '$firebaseArray', getUserName]);
+        .run(['$uibModal', '$cookies', '$firebaseArray', 'LogIn', foo]);
  })();
