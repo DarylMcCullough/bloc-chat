@@ -84,7 +84,12 @@
             );
         };
         
-        Users.logout = function(username, callback) {
+        Users.logOut = function(username, callback) {
+            $log.info("username: " + username);
+
+            if (callback == null) {
+                callback = function(okay, err) {};
+            }
             Auth.logOut();
             $cookies.put('blocChatCurrentUser', "");
             
@@ -93,8 +98,10 @@
             loaded.then(
                 function(users) {
                     var user = checkUsernameEmail(users, username, "");
+                    $log.info("user: " + user);
                     if (user == null) {
                         callback(true, "user not found");
+                        return;
                     }
                     var ref = firebase.database().ref();
                     var updates = {};

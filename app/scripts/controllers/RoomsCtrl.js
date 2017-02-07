@@ -1,30 +1,15 @@
 (function() {
-     function RoomsCtrl($scope, $firebaseArray, $log, Room, $cookies, $timeout, $uibModal) {
+     function RoomsCtrl($scope, $firebaseArray, $log, Room, $cookies, $timeout, Users, LogIn) {
          this.logOut = function() {
-             firebase.auth()
-                 .signOut()
-                 .then(
-        function() {
-            var ref = firebase.database().ref().child("users");
-            $firebaseArray(ref)
-                .$loaded()
-                .then(function(users) {
-                    for (var i=0; i< users.length; i++) {
-                        var user = users[i];
-                        if ($scope.username == user.username) {
-                            var updates = {};
-                            updates['/users/' + user.$id + '/loggedIn'] = false;
-                            firebase.database().ref().update(updates);
-                            break;
-                        }
-                    }
-                    $cookies.put('blocChatCurrentUser', "");
-                    $scope.username = "";
-                    getUserName($uibModal, $cookies, $firebaseArray);
-                })}, 
-        function(error) {
-        });
-         };
+             var callback = function(okay, msg) {
+                 if (okay) {
+                    $scope.username = $cookies.get("blocChatCurrentUser");
+                     $log.info("now, username = " + $scope.username);
+                     LogIn.logIn();
+                 }
+             }
+             Users.logOut($scope.username, callback);
+         }
                   
 
          this.rooms = Room.all;
@@ -66,5 +51,5 @@
  
      angular
          .module('blocChat')
-         .controller('RoomsCtrl', ['$scope', '$firebaseArray', '$log', 'Room', '$cookies', '$timeout', '$uibModal', RoomsCtrl]);
+         .controller('RoomsCtrl', ['$scope', '$firebaseArray', '$log', 'Room', '$cookies', '$timeout', 'Users', 'LogIn', RoomsCtrl]);
  })();
