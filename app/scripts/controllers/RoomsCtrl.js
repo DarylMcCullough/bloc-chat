@@ -1,9 +1,32 @@
 (function() {
      function RoomsCtrl($scope, $firebaseArray, $log, Room, $cookies, $timeout, $uibModal) {
          this.logOut = function() {
-             $cookies.put('blocChatCurrentUser', "");
-             getUserName($uibModal, $cookies, $firebaseArray);
-         }
+             firebase.auth()
+                 .signOut()
+                 .then(
+        function() {
+            var ref = firebase.database().ref().child("users");
+            $firebaseArray(ref)
+                .$loaded()
+                .then(function(users) {
+                    for (var i=0; i< users.length; i++) {
+                        var user = users[i];
+                        if (username == user.username) {
+                            var updates = {};
+                            updates['/users/' + user.$id + '/loggedIn'] = false;
+                            firebase.database().ref().update(updates);
+                            return;
+                        }
+                    }
+                    $cookies.put('blocChatCurrentUser', "");
+                    getUserName($uibModal, $cookies, $firebaseArray);
+                })}, 
+        function(error) {
+                      // An error happened.
+        });
+         };
+                  
+
          this.rooms = Room.all;
          $scope.username = $cookies.get("blocChatCurrentUser");
      
