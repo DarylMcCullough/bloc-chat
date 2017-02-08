@@ -110,6 +110,11 @@
         };
         
         Users.listOnlineUsers = function(callback) {
+            if (callback == null) {
+                callback = function(x) {
+                    return;
+                }
+            }
             var online = [];
             var ref = firebase.database().ref().child("users");
             var loaded = $firebaseArray(ref).$loaded();
@@ -118,7 +123,7 @@
                     for (var i=0; i<users.length; i++) {
                         var user = users[i];
                         if (user.loggedIn == true) {
-                            online.append(user);
+                            online.push(user);
                         }
                     }
                     callback(online);

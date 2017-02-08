@@ -5,6 +5,19 @@
     box-sizing: padding-box;
 }
 
+.users-div {
+}
+
+.users-div-title {
+    display: inline;
+}
+
+.room-id {
+}
+
+.user-list {
+    display: inline-block;
+}
 body {
     background-color:gray;
 }
