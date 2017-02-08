@@ -95,16 +95,13 @@
             
             var ref = firebase.database().ref().child("users");
             var loaded = $firebaseArray(ref).$loaded();
-            $log.info("called firebaseArray");
             loaded.then(
                 function(users) {
                     var user = checkUsernameEmail(users, username, "");
-                    $log.info("trying to log out");
                     if (user == null) {
                         callback(true, "user not found");
                         return;
                     }
-                    $log.info("found a user");
                     var updates = {};
                     updates['/users/' + user.$id + "/loggedIn"] = false;
                     firebase.database().ref().update(updates);
