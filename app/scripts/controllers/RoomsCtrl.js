@@ -5,6 +5,7 @@
                  if (okay) {
                     $scope.username = $cookies.get("blocChatCurrentUser");
                      LogIn.logIn();
+                     updateUsername();
                  }
              }
              Users.logOut($scope.username, callback);

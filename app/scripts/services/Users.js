@@ -69,10 +69,11 @@
                     }
 
                     Auth.logIn(email, password)
-                    .then(function(user) {
+                    .then(function(user1) {
                         var ref = firebase.database().ref();
                         var updates = {};
                         updates['/users/' + user.$id + "/loggedIn"] = true;
+                        firebase.database().ref().update(updates);
                         $cookies.put('blocChatCurrentUser', username);
                         callback(true, username, "success");
                         return;
@@ -94,16 +95,19 @@
             
             var ref = firebase.database().ref().child("users");
             var loaded = $firebaseArray(ref).$loaded();
+            $log.info("called firebaseArray");
             loaded.then(
                 function(users) {
                     var user = checkUsernameEmail(users, username, "");
+                    $log.info("trying to log out");
                     if (user == null) {
                         callback(true, "user not found");
                         return;
                     }
-                    var ref = firebase.database().ref();
+                    $log.info("found a user");
                     var updates = {};
                     updates['/users/' + user.$id + "/loggedIn"] = false;
+                    firebase.database().ref().update(updates);
                     callback(true, "success");
                     return;
             });
